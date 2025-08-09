@@ -9,7 +9,7 @@ const JWT_EXPIRES_IN = "1d";
 // signup
 exports.signup = async (req, res) => {
     try {
-        const { stuID, email, password, name, rollno, year, div, branch, dob, bloodGroup, fees, caste } = req.body;
+        const { studentID, email, password, name, rollno, year, div, branch, dob, bloodGroup, fees, caste } = req.body;
 
         // Check if email already exists
         const existingUser = await Student.findOne({ email });
@@ -22,7 +22,7 @@ exports.signup = async (req, res) => {
 
         // Create new student
         const newStudent = new Student({
-            stuID,
+            studentID,
             email,
             password: hashedPassword,
             name,
