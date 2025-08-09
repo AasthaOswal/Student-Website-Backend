@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const activitySchema = new mongoose.Schema({
-    stuID : {
-        type : String , 
-        required : true 
-    } , 
+    stuID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "student",
+        required: true
+    },
 
     type: { type : String , enum : ["Commitee" , "Sports" , "Hackathon"]  , required : true} , 
     title : String , 

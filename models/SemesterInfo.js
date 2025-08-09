@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const semesterInfoSchema = new mongoose.Schema({
-    stuID : {
-        type : String , 
-        required : true 
-    } , 
+    stuID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "student",
+        required: true
+    },
 
     semester : {
         type : Number , 

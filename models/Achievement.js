@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const achievementSchema = new mongoose.Schema({
     stuID: {
-        type : String , 
-        required : true 
-    } , 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "student",
+        required: true
+    },
 
     title : String , 
     description : String , 

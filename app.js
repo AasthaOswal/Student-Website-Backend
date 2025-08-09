@@ -5,6 +5,7 @@ require("dotenv").config();
 const cors = require("cors");
 
 
+
 const app = express();
 
 // Connect to MongoDB
@@ -17,6 +18,10 @@ app.use(cookieParser());
 
 // Routes
 app.use("/auth", require("./routes/authRoutes"));
+app.use("/internships" , require("./routes/internshipRoutes"));
+app.use("/activities", require("./routes/activityRoutes"));
+app.use("/achievements", require("./routes/achievementRoutes"));
+app.use("/semesterInfo", require("./routes/semesterInfoRoutes"));
 
 // Root route
 app.get("/", (req, res) => {

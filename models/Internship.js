@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const internshipSchema = new mongoose.Schema({
-    stuID : {
-        type : String , 
-        required : true
-    } , 
+    stuID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "student",
+        required: true
+    },
 
     companyName : String , 
     role : String , 
@@ -14,4 +15,4 @@ const internshipSchema = new mongoose.Schema({
 } , 
 {timestamps: true});
 
-module.exports = mongoose.model("Intership" , internshipSchema);
+module.exports = mongoose.model("Internship" , internshipSchema);
