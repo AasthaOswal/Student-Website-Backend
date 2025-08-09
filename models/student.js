@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-    stuID : {
-        type: mongoose.Schema.Types.ObjectId, 
-        required: true,
-        unique: true
+    stuID: {
+        type: String,
+        unique: true,
     },
     email :{
         type : String,
