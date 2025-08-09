@@ -1,9 +1,10 @@
-const Student = require("../models/Student");
+const Student = require("../models/student");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey"; // Store in .env
-const JWT_EXPIRES_IN = "1d"; // 1 day
+const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey"; 
+const JWT_EXPIRES_IN = "1d"; 
 
 // signup
 exports.signup = async (req, res) => {
@@ -37,7 +38,22 @@ exports.signup = async (req, res) => {
 
         await newStudent.save();
 
+        const token = jwt.sign(
+            { id: newStudent._id, email: newStudent.email },
+            JWT_SECRET,
+            { expiresIn: JWT_EXPIRES_IN }
+        );
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
         res.status(201).json({ message: "Signup successful" });
+
+
 
     } catch (error) {
         console.error("Signup Error:", error);
@@ -69,18 +85,19 @@ exports.login = async (req, res) => {
             { expiresIn: JWT_EXPIRES_IN }
         );
 
-        // Send token in cookie (HttpOnly for security)
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+            maxAge: 24 * 60 * 60 * 1000
         });
 
-        res.json({ message: "Login successful", token });
+        res.json({ message: "Login successful" });
+
 
     } catch (error) {
         console.error("Login Error:", error);
-        res.status(500).json({ message: "Server error during login" });
+        res.status(500).json({ message: "Server error during log2in" });
     }
 };
 
